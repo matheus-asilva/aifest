@@ -1,0 +1,129 @@
+------------- Turing Analytics as a Service --------------
+------------------- PowerOfData --------------------------
+--------- Data da ultima atualizacao: --------------------
+--------------- 16/11/2019 -------------------------------
+----------------------------------------------------------
+Parametros ------------------------------------------------
+Nome do Bucket: turing-bkt-via-varejo-prod
+Id do Projeto: 1008
+Id da Empresa: 1019
+Id do Modelo: 1008
+Schema RDS: EMP_1019_Proj_1008
+Nome da ABT: CRED18_AMDESEN_VARPRED_DIRTY_TRATADA.csv
+Nome do target: TARGET
+Delimitador: ,
+Amostra: 1.0
+Normalizar por WoE: Sim
+Criar Variaveis Turing(1=N 2=S): 1
+-----------------------------------------------------------
+Importando s3fs
+Importando boto3
+Validando credenciais para acesso aos Buckets...
+S3 ----> OK
+DynamoDB ----> OK
+RDS ----> OK
+Salvando tabela de versoes Turing AutoML
+Salvando tabela para controle de processo Batch
+Carregando arquivo na memoria...
+Turing - encoding:utf-8
+Salvando indice...
+Gerando Metadados...
+Metadado Gerado Com Sucesso
+('Quantidade de IDs: ', 1)
+('IdDataFrame: ', (105329, 1))
+Arquivo disponivel em memoria
+Salvando Tabela Bruta (input) no RDS
+Salvando Tabela Bruta (input) no S3
+('TuringImportData -> Qtd Obs: ', 105329)
+('TuringImportData -> Qtd Vars: ', 615)
+------------------- Metadados -------------------
+('Quantidade de IDs: ', 1)
+('Quantidade de Explicativas: ', 613)
+('Quantidade de Rejeitadas: ', 0)
+('Quantidade de Targets: ', 1)
+--------------------------------------------------
+------------------- DataPrep ---------------------
+Quantidade de variaveis excluidas por terem mais de 1 % de missings: 24
+Turing Data Prep: Variaveis Numericas
+('Quantidade de variaveis explicativas numericas: ', 613)
+('Quantidade de variaveis com tratamento de missings:', 589, 'de', 591)
+('Quantidade de variaveis normalizadas:', 589, 'de', 591)
+Aplicando Normalizacao por WoE
+('Quantidade de variaveis nesta etapa:', 589)
+Turing Data Prep: Variaveis Nominais
+('Quantidade de variaveis nominais(input): ', 0)
+Nao existem variaveis nominais para serem tratadas
+Salvando Tabela De Modelagem no S3
+/mnt/tmp/spark-73dfa2b1-373b-4365-bdeb-77dc5a659eb6/TuringExecMachineLearningModule.py:2253: UserWarning: The DataFrame has column names of mixed type. They will be converted to strings and not roundtrip correctly.
+  table = pa.Table.from_pandas(input_df)
+Salvando lista de variaveis nominais rejeitadas no RDS
+Salvando lista de variaveis transformadas no RDS
+Turing - encoding:utf-8
+('TuringDataPrep -> Qtd obs: ', 105329)
+('TuringDataPrep -> Qtd Vars: ', 1180)
+('MarcaTarget -> Qtd obs: ', 105329)
+       evento  qt_dominio  tx_evento fl_evento_raro
+0      evento       66335   0.629789              0
+1  nao_evento       38994   0.370211             NA
+('Amostra de ', 105329, 'linhas gerada com sucesso')
+('TuringSampleData -> Qtd obs: ', 105329)
+Salvando Tabela Pos Selecao de Variaveis no S3
+Salvando lista de variaveis dummies criadas pelo Turing
+Apos selecao de variaveis - testadas no modelo
+('TuringVariableSelection -> Qtd obs: ', 105329)
+('TuringVariableSelection -> Qtd Vars: ', 12)
+--------- Turing Machine Learning ----------------
+Turing Machine Learning - Naive Bayes
+Turing Machine Learning - Logistic Regression
+[Parallel(n_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
+[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    0.3s finished
+------------------- ATENCAO -------------------------
+Os algoritmos KNN, SVM e SVC nao foram utilizados
+porque a tabela de modelagem tem mais de 50 variaveis
+o tempo de treinamento seria superior a 5 dias
+-----------------------------------------------------
+Turing Machine Learning - Perceptron
+Fitting 5 folds for each of 80 candidates, totalling 400 fits
+[Parallel(n_jobs=15)]: Using backend LokyBackend with 15 concurrent workers.
+[Parallel(n_jobs=15)]: Done  35 tasks      | elapsed:    9.1s
+/usr/local/lib64/python2.7/site-packages/sklearn/linear_model/stochastic_gradient.py:603: ConvergenceWarning: Maximum number of iteration reached before convergence. Consider increasing max_iter to improve the fit.
+  ConvergenceWarning)
+/usr/local/lib64/python2.7/site-packages/sklearn/linear_model/stochastic_gradient.py:603: ConvergenceWarning: Maximum number of iteration reached before convergence. Consider increasing max_iter to improve the fit.
+  ConvergenceWarning)
+/usr/local/lib64/python2.7/site-packages/sklearn/linear_model/stochastic_gradient.py:603: ConvergenceWarning: Maximum number of iteration reached before convergence. Consider increasing max_iter to improve the fit.
+  ConvergenceWarning)
+/usr/local/lib64/python2.7/site-packages/sklearn/linear_model/stochastic_gradient.py:603: ConvergenceWarning: Maximum number of iteration reached before convergence. Consider increasing max_iter to improve the fit.
+  ConvergenceWarning)
+/usr/local/lib64/python2.7/site-packages/sklearn/linear_model/stochastic_gradient.py:603: ConvergenceWarning: Maximum number of iteration reached before convergence. Consider increasing max_iter to improve the fit.
+  ConvergenceWarning)
+/usr/local/lib64/python2.7/site-packages/sklearn/linear_model/stochastic_gradient.py:603: ConvergenceWarning: Maximum number of iteration reached before convergence. Consider increasing max_iter to improve the fit.
+  ConvergenceWarning)
+[Parallel(n_jobs=15)]: Done 185 tasks      | elapsed:   14.5s
+/usr/local/lib64/python2.7/site-packages/sklearn/linear_model/stochastic_gradient.py:603: ConvergenceWarning: Maximum number of iteration reached before convergence. Consider increasing max_iter to improve the fit.
+  ConvergenceWarning)
+/usr/local/lib64/python2.7/site-packages/sklearn/linear_model/stochastic_gradient.py:603: ConvergenceWarning: Maximum number of iteration reached before convergence. Consider increasing max_iter to improve the fit.
+  ConvergenceWarning)
+/usr/local/lib64/python2.7/site-packages/sklearn/linear_model/stochastic_gradient.py:603: ConvergenceWarning: Maximum number of iteration reached before convergence. Consider increasing max_iter to improve the fit.
+  ConvergenceWarning)
+/usr/local/lib64/python2.7/site-packages/sklearn/linear_model/stochastic_gradient.py:603: ConvergenceWarning: Maximum number of iteration reached before convergence. Consider increasing max_iter to improve the fit.
+  ConvergenceWarning)
+/usr/local/lib64/python2.7/site-packages/sklearn/linear_model/stochastic_gradient.py:603: ConvergenceWarning: Maximum number of iteration reached before convergence. Consider increasing max_iter to improve the fit.
+  ConvergenceWarning)
+[Parallel(n_jobs=15)]: Done 400 out of 400 | elapsed:   22.1s finished
+Turing Machine Learning - Decision Tree Classifier
+Fitting 5 folds for each of 40 candidates, totalling 200 fits
+[Parallel(n_jobs=15)]: Using backend LokyBackend with 15 concurrent workers.
+[Parallel(n_jobs=15)]: Done 200 out of 200 | elapsed:    0.7s finished
+Turing Machine Learning - Random Forest
+Fitting 5 folds for each of 200 candidates, totalling 1000 fits
+[Parallel(n_jobs=15)]: Using backend LokyBackend with 15 concurrent workers.
+[Parallel(n_jobs=15)]: Done 215 tasks      | elapsed:    7.3s
+/usr/local/lib64/python2.7/site-packages/sklearn/externals/joblib/externals/loky/process_executor.py:706: UserWarning: A worker stopped while some jobs were given to the executor. This can be caused by a too short worker timeout or by a memory leak.
+  "timeout or by a memory leak.", UserWarning
+[Parallel(n_jobs=15)]: Done 1000 out of 1000 | elapsed:  1.3min finished
+Turing Machine Learning - Linear Models With SGD
+Turing Machine Learning - Gradient Boosting Classifier
+Fitting 5 folds for each of 625 candidates, totalling 3125 fits
+[Parallel(n_jobs=15)]: Using backend LokyBackend with 15 concurrent workers.
+[Parallel(n_jobs=15)]: Done 258 tasks      | elapsed:   21.4s
+[Parallel(n_jobs=15)]: Done 928 tasks      | elapsed:  2.2min
